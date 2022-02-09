@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Elemon {
+  tokenId Int @id
+  baseCardId Int
+  name String
+  quality Int
+  rarity Int
+  purity Int
+  level Int
+  point Int
+  star Int
+  bp_1 Int //quality
+  bp_2 Int //quality
+  bp_3 Int //quality
+  bp_4 Int //quality
+  bp_5 Int //quality
+  bp_6 Int //quality
+  skill_1 Int 
+  skill_2 Int? 
+  skill_3 Int? 
+  skill_4 Int? 
+}
