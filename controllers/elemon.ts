@@ -44,7 +44,8 @@ export const compareElemons = async (elemon1, elcoinPrice, elmonPrice) => {
       bp_6: elemon1.bp_6,
 			*/
 			rarity: elemon1.rarity,
-			purity: elemon1.purity
+			purity: elemon1.purity,
+			quality: elemon1.quality
     }
   });
 
@@ -52,7 +53,6 @@ export const compareElemons = async (elemon1, elcoinPrice, elmonPrice) => {
 
   for (let compElemon of comparableElemons) {
 		// console.log("COMPARABLE")
-		// console.log(elemon1.name)
 		// console.log(compElemon.name)
 		// console.log("/////")
     let price = elemon1.price;
@@ -118,20 +118,17 @@ export const compareElemons = async (elemon1, elcoinPrice, elmonPrice) => {
       }
     }
 
-		const priceForSelectedROI = calculatePriceForROI(compElemon.point, 19);
+		const priceForSelectedROI = calculatePriceForROI(compElemon.point, 21);
 
-		if(price < priceForSelectedROI*1.05) {
-			console.log(`POSSIBLE OPPORTUNITY: ${elemon1.id} - ${compElemon.tokenId}`);
+		if(price * 1.1 < priceForSelectedROI) {
+			console.log(`POSSIBLE OPPORTUNITY: ${elemon1.id} - ${compElemon.tokenId} - ${priceForSelectedROI-price}`);
+			console.log(`Price For ROI: ${priceForSelectedROI}`);
+			console.log(`Total Price: ${price}`);
 			// console.log("quality: " + elemon1.quality);
 			// console.log(compElemon);
 		}
-		// console.log("//")
-		// console.log(`${elemon1.id}`);
-		// console.log(priceForSelectedROI);
-		// console.log(price)
-		// console.log("//")
 
-		// console.log("profit: ", priceForSelectedROI - price);
+		 //console.log("profit: ", priceForSelectedROI - price);
   }
 };
 
@@ -145,8 +142,8 @@ const calculateCostForLevel = (
   elcoinPrice: number
 ) => {
   const levelPrices = [
-    0, 20, 22, 27, 33, 42, 53, 67, 84, 104, 128, 225, 267, 314, 367, 425, 490,
-    560, 638, 723, 914, 1021, 1137, 1261, 1394, 1536, 1687, 1848, 2019, 2200,
+    0, 20, 22, 27, 33, 42, 53, 67, 84, 104, 128,156, 188, 225, 267, 314, 367, 425, 490,
+    560, 638, 723, 800, 914, 1021, 1137, 1261, 1394, 1536, 1687, 1848, 2019, 2200,
     2392, 2595, 2809, 3035, 3272, 3522, 3783, 4058, 4346, 4646, 4961, 5289,
     5632, 5989, 6361, 6748, 7150, 7568, 8002, 8452, 8919, 9403, 9904, 10423,
     10959, 11514, 12086
@@ -158,6 +155,7 @@ const calculateCostForLevel = (
   for (let price of levelInterval) {
     spent += price * elcoinPrice;
   }
+
 
   return spent;
 };
@@ -176,6 +174,7 @@ const calculateCostForStar = (
     spent += price * elmonPrice;
   }
 
+
   return spent;
 };
 
@@ -191,11 +190,19 @@ const calculateCostForSkill = (
   ];
   let spent = 0;
 
-  const skillInterval = skillPrices.slice(skill - 1, compSkill);
+  const skillInterval = skillPrices.slice(skill, compSkill);
 
   for (let price of skillInterval) {
     spent += price * elcoinPrice;
   }
 
+
   return spent;
 };
+
+console.log(calculateCostForLevel(2, 25, 0.006));
+console.log(calculateCostForSkill(1, 12, 0.006));
+console.log(calculateCostForSkill(1, 12, 0.006));
+console.log(calculateCostForSkill(2, 12, 0.006));
+console.log(calculateCostForStar(0, 6, 0.18));
+

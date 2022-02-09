@@ -9,7 +9,7 @@ const ELEMONS_IN_EXISTENCE = 164831;
 const nameToIdMap = new Map<string, number>();
 
 const crawlAllElemons = async () => {
-  for (let pageNum = 962; pageNum < ELEMONS_IN_EXISTENCE; pageNum += 1) {
+  for (let pageNum = 2941; pageNum < ELEMONS_IN_EXISTENCE; pageNum += 1) {
     await crawlPage(pageNum);
   }
 };
@@ -113,6 +113,12 @@ const crawlPage = async (pageNum: number) => {
 					break;
 				case "img_aura quality_7":
 					quality = 7;
+					break;
+				case "img_aura quality_8":
+					quality = 8;
+					break;
+				case "img_aura quality_9":
+					quality = 9;
 					break;
 			}
 
@@ -229,7 +235,7 @@ const crawlMarketPages = async (elemonsForSale: any) => {
 						purity,
           };
 
-          await compareElemons(newElemon, 0.006, 0.115);
+          await compareElemons(newElemon, 0.006, 0.18);
         }
       }
     } catch (err) {
@@ -295,7 +301,7 @@ const main = async () => {
   nameToIdMap.set('CorsairMastic', 27);
   nameToIdMap.set('CorsairLord', 28);
 
-  // await crawlAllElemons();
+  //await crawlAllElemons();
   await crawlMarket();
 };
 
